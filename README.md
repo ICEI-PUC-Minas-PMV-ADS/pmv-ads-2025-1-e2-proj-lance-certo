@@ -1,12 +1,12 @@
 # LanceCerto.WebApp
 
-**Lance Certo** é uma aplicação web desenvolvida em ASP.NET Core MVC com .NET 6.0 para gerenciamento e participação em leilões de imóveis. O sistema permite cadastrar, editar, visualizar e excluir imóveis, além de realizar pesquisas com filtros por cidade, estado, tipo e preço.
+**Lance Certo** é uma aplicação web desenvolvida em ASP.NET Core MVC com .NET 8.0 para gerenciamento e participação em leilões de imóveis. O sistema permite cadastrar, editar, visualizar e excluir imóveis, além de realizar pesquisas com filtros por cidade, estado, tipo e preço.
 
 ---
 
 ## 🔧 Tecnologias Utilizadas
 
-- ASP.NET Core MVC (.NET 6.0)
+- ASP.NET Core MVC (.NET 8.0)
 - Entity Framework Core
 - SQL Server (Azure SQL Database)
 - Bootstrap 5
