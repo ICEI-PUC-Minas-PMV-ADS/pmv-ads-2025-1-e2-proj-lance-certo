@@ -1,0 +1,31 @@
+@model LanceCerto.WebApp.Models.Imovel
+
+@{
+    ViewData["Title"] = "Detalhes do Imóvel";
+}
+
+<h2>Detalhes do Imóvel</h2>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Titulo</h4>
+        <p class="card-text"><strong>Descrição:</strong> @Model.Descricao</p>
+        <p class="card-text"><strong>Tipo:</strong> @Model.Tipo</p>
+        <p class="card-text"><strong>Endereço:</strong> @Model.Endereco</p>
+        <p class="card-text"><strong>Cidade:</strong> @Model.Cidade</p>
+        <p class="card-text"><strong>Estado:</strong> @Model.Estado</p>
+        <p class="card-text"><strong>Preço Mínimo:</strong> R$ @Model.PrecoMinimo.ToString("N2")</p>
+        <p class="card-text"><strong>Status:</strong> @Model.Status</p>
+
+        @if (!string.IsNullOrEmpty(Model.ImagemUrl))
+        {
+            <div class="mt-3">
+                <img src="@Model.ImagemUrl" class="img-fluid rounded" alt="Imagem do Imóvel" style="max-width: 400px;" />
+            </div>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</div>

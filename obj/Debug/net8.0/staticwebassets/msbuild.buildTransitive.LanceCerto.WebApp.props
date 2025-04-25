@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\LanceCerto.WebApp.props" />
+</Project>
