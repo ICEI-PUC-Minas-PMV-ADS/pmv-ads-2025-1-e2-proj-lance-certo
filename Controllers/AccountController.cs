@@ -28,7 +28,8 @@ namespace LanceCerto.WebApp.Controllers
                     Nome = model.Nome,
                     Email = model.Email,
                     Senha = model.Senha,
-                    DataNascimento = model.DataNascimento
+                    DataNascimento = model.DataNascimento,
+                    Estado = "ATIVO"
                 };
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
