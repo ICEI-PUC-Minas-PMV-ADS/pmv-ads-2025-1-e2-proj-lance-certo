@@ -1,10 +1,17 @@
 ﻿@model LanceCerto.WebApp.Models.CadastroViewModel
 @{
 	ViewData["Title"] = "Criar nova conta";
+	ViewData.ModelState.Clear();
 }
 <h2>@ViewData["Title"]</h2>
-<p>Já possui uma conta? <a href="/Account/Login">Faça Login</a></p></a>
+<p>Já possui uma conta? <a href="/Account/Login">Faça Login</a></p>
 
+@if (ViewBag.MensagemSucesso != null)
+{
+	<div class="alert alert-success" role="alert">
+		@ViewBag.MensagemSucesso
+	</div>
+}
 <form asp-action="Cadastro" method="post">
 	<div class="form-group">
 		<label asp-for="Nome"></label>

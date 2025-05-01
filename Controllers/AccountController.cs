@@ -34,7 +34,8 @@ namespace LanceCerto.WebApp.Controllers
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
 
-                return RedirectToAction("Login");
+                ViewBag.MensagemSucesso = "Usuário cadastrado com sucesso!";
+                return View(new CadastroViewModel());
             }
             return View(model);
         }
