@@ -18,7 +18,7 @@ namespace LanceCerto.WebApp.Models
         public string Senha { get; set; }
 
         [Required(ErrorMessage ="A data de nascimento é obrigatória.")]
-        [DataType(DataType.Password)]
+        [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
     }
 }
