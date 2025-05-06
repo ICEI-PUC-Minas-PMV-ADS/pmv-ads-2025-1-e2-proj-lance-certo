@@ -1,9 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\LanceCerto.WebApp\\",
+  "WorkspaceRootPath": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\danie\\onedrive\\desktop\\projetos\\universidade\\lance certo\\lancecerto.webapp\\data\\lancecertodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\models\\leilao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:models\\leilao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\controllers\\leilaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:controllers\\leilaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\lancecerto.webapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:lancecerto.webapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\data\\lancecertodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:data\\lancecertodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,20 +30,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LanceCertoDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\LanceCerto.WebApp\\Data\\LanceCertoDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\LanceCertoDbContext.cs",
-              "ToolTip": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\LanceCerto.WebApp\\Data\\LanceCertoDbContext.cs",
-              "RelativeToolTip": "Data\\LanceCertoDbContext.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAzwBAAAAAwAAAA",
+              "DocumentIndex": 1,
+              "Title": "LeilaoController.cs",
+              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Controllers\\LeilaoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\LeilaoController.cs",
+              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Controllers\\LeilaoController.cs",
+              "RelativeToolTip": "Controllers\\LeilaoController.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAAAKkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-25T00:54:31.961Z",
+              "WhenOpened": "2025-04-29T19:59:33.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T18:24:23.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LanceCerto.WebApp.csproj",
+              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj",
+              "RelativeDocumentMoniker": "LanceCerto.WebApp.csproj",
+              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj",
+              "RelativeToolTip": "LanceCerto.WebApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-29T17:46:57.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Leilao.cs",
+              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Models\\Leilao.cs",
+              "RelativeDocumentMoniker": "Models\\Leilao.cs",
+              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Models\\Leilao.cs",
+              "RelativeToolTip": "Models\\Leilao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T17:26:29.177Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LanceCertoDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Data\\LanceCertoDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\LanceCertoDbContext.cs",
+              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Data\\LanceCertoDbContext.cs",
+              "RelativeToolTip": "Data\\LanceCertoDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-25T00:54:31.961Z"
             }
           ]
         }
