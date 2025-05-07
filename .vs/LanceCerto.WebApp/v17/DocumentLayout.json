@@ -1,17 +1,29 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\",
+  "WorkspaceRootPath": "C:\\Users\\Pedro\\Desktop\\Faculdade\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\models\\leilao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\pedro\\desktop\\faculdade\\views\\home screen\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:views\\home screen\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\pedro\\desktop\\faculdade\\models\\imovel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:models\\imovel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\pedro\\desktop\\faculdade\\views\\imovel\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:views\\imovel\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\pedro\\desktop\\faculdade\\models\\leilao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:models\\leilao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\controllers\\leilaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\pedro\\desktop\\faculdade\\controllers\\leilaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:controllers\\leilaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\daniel dumont\\onedrive\\desktop\\faculdade\\projeto\\views\\leilao\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|c:\\users\\pedro\\desktop\\faculdade\\views\\leilao\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A445A06F-8DB0-4FD9-906F-8A748AF15766}|LanceCerto.WebApp.csproj|solutionrelative:views\\leilao\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -22,19 +34,66 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Imovel.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Models\\Imovel.cs",
+              "RelativeDocumentMoniker": "Models\\Imovel.cs",
+              "ToolTip": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Models\\Imovel.cs",
+              "RelativeToolTip": "Models\\Imovel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T20:27:12.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Views\\Imovel\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Imovel\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Views\\Imovel\\Create.cshtml",
+              "RelativeToolTip": "Views\\Imovel\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-07T20:26:12.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Views\\Home Screen\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home Screen\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Views\\Home Screen\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home Screen\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-07T20:25:37.87Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Leilao.cs",
-              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Models\\Leilao.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Models\\Leilao.cs",
               "RelativeDocumentMoniker": "Models\\Leilao.cs",
-              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Models\\Leilao.cs",
+              "ToolTip": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Models\\Leilao.cs",
               "RelativeToolTip": "Models\\Leilao.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -43,29 +102,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Views\\Leilao\\Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Views\\Leilao\\Create.cshtml",
               "RelativeDocumentMoniker": "Views\\Leilao\\Create.cshtml",
-              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Views\\Leilao\\Create.cshtml",
+              "ToolTip": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Views\\Leilao\\Create.cshtml",
               "RelativeToolTip": "Views\\Leilao\\Create.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-06T18:59:23.549Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-06T18:59:23.549Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "LeilaoController.cs",
-              "DocumentMoniker": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Controllers\\LeilaoController.cs",
+              "DocumentMoniker": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Controllers\\LeilaoController.cs",
               "RelativeDocumentMoniker": "Controllers\\LeilaoController.cs",
-              "ToolTip": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\Controllers\\LeilaoController.cs",
+              "ToolTip": "C:\\Users\\Pedro\\Desktop\\Faculdade\\Controllers\\LeilaoController.cs",
               "RelativeToolTip": "Controllers\\LeilaoController.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAgwF0AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-29T19:59:33.926Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-29T19:59:33.926Z"
             }
           ]
         }
