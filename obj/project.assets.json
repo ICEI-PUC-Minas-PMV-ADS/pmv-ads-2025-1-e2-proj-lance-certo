@@ -7596,24 +7596,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Daniel Dumont\\.nuget\\packages\\": {},
+    "C:\\Users\\Pedro\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj",
+      "projectUniqueName": "C:\\Users\\Pedro\\Desktop\\Faculdade\\LanceCerto.WebApp.csproj",
       "projectName": "LanceCerto.WebApp",
-      "projectPath": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj",
-      "packagesPath": "C:\\Users\\Daniel Dumont\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\obj\\",
+      "projectPath": "C:\\Users\\Pedro\\Desktop\\Faculdade\\LanceCerto.WebApp.csproj",
+      "packagesPath": "C:\\Users\\Pedro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pedro\\Desktop\\Faculdade\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\NuGet.Config",
-        "C:\\Users\\Daniel Dumont\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pedro\\Desktop\\Faculdade\\NuGet.Config",
+        "C:\\Users\\Pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -7621,6 +7621,7 @@
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
