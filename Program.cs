@@ -29,3 +29,8 @@ app.MapControllerRoute(
     pattern: "{controller=Imovel}/{action=Index}/{id?}");
 
 app.Run();
+
+// Rota padrão para HomeController
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
