@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Início";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <header class="header">
+        <div class="logo">🏠 Lance Certo</div>
+        <div class="search-login">
+            <input type="text" placeholder="Search" />
+            <a href="/Account/Login"><i class="fa fa-user-circle"></i></a>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="intro">
+            <h1>Lance Certo</h1>
+            <p>Lance Certo é uma plataforma de leilões de imóveis que conecta compradores a grandes oportunidades...</p>
+            <div class="buttons">
+                <a class="btn btn-primary" href="/Account/Register">FAÇA SEU CADASTRO</a>
+                <a class="btn btn-outline" href="/Account/Login">LOGIN</a>
+            </div>
+        </div>
+        <div class="phone-image">
+            <img src="~/images/casa1.jpg" alt="Casa" />
+            <img src="~/images/documento.jpg" alt="Documentos" />
+        </div>
+    </main>
+
+    <section class="sobre-nos">
+        <h2>Sobre Nós</h2>
+        <p>Nosso compromisso é democratizar o acesso aos leilões imobiliários...</p>
+        <a class="btn btn-primary" href="/Imovel">ENCONTRE O SEU FUTURO IMÓVEL</a>
+        <img src="~/images/maos-chave.jpg" alt="Chave e Casa" />
+    </section>
+</div>
