@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LanceCerto.WebApp.Models
 {
@@ -8,8 +9,9 @@ namespace LanceCerto.WebApp.Models
         public int LeilaoId { get; set; }
 
         public int ImovelId { get; set; }
+        [BindNever]
 
-        public Imovel Imovel { get; set; }
+        public Imovel? Imovel { get; set; }
 
         public int? VencedorId { get; set; }
         public Usuario? Vencedor { get; set; }

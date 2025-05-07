@@ -46,29 +46,57 @@ namespace LanceCerto.WebApp.Controllers
             return View(leilao);
         }
 
-        // GET: Leilao/Create
-        public IActionResult Create()
-        {
-            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Cidade");
-            ViewData["VencedorId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId");
-            return View();
-        }
+        
 
         // POST: Leilao/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        public IActionResult Create()
+        {
+            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Titulo");
+
+            ViewBag.StatusList = new SelectList(new List<string> { "PENDENTE", "ATIVO", "ENCERRADO" });
+
+            return View();
+        }
+
+        // POST: Leilao/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LeilaoId,ImovelId,VencedorId,InicioEm,FimEm,Status,MaiorLanceAtual")] Leilao leilao)
+        public async Task<IActionResult> Create([Bind("LeilaoId,ImovelId,InicioEm,FimEm,Status,MaiorLanceAtual")] Leilao leilao)
         {
+            Console.WriteLine("===== ENTROU NO MÉTODO POST DO LEILÃO =====");
+
+            if (leilao.InicioEm >= leilao.FimEm)
+            {
+                ModelState.AddModelError("FimEm", "A data de fim deve ser posterior à data de início.");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(leilao);
                 await _context.SaveChangesAsync();
+                Console.WriteLine(">>> Leilão salvo com sucesso <<<");
                 return RedirectToAction(nameof(Index));
             }
+
+            if (!ModelState.IsValid)
+            {
+                Console.WriteLine(">>> ModelState INVÁLIDO <<<");
+
+                foreach (var error in ModelState)
+                {
+                    foreach (var subError in error.Value.Errors)
+                    {
+                        Console.WriteLine($"Erro no campo '{error.Key}': {subError.ErrorMessage}");
+                    }
+                }
+            }
+
             ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Cidade", leilao.ImovelId);
-            ViewData["VencedorId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId", leilao.VencedorId);
+            ViewBag.StatusList = new SelectList(new List<string> { "PENDENTE", "ATIVO", "ENCERRADO" }, leilao.Status);
+            leilao.MaiorLanceAtual = 0;
+
             return View(leilao);
         }
 
