@@ -76,14 +76,11 @@ namespace LanceCerto.WebApp.Controllers
             {
                 _context.Add(leilao);
                 await _context.SaveChangesAsync();
-                Console.WriteLine(">>> Leilão salvo com sucesso <<<");
                 return RedirectToAction(nameof(Index));
             }
 
             if (!ModelState.IsValid)
             {
-                Console.WriteLine(">>> ModelState INVÁLIDO <<<");
-
                 foreach (var error in ModelState)
                 {
                     foreach (var subError in error.Value.Errors)
