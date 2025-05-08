@@ -7,8 +7,9 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary-custom">Novo Leilão</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -37,10 +38,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Imovel.Cidade)
+                @Html.DisplayFor(modelItem => item.Imovel.Titulo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vencedor.UsuarioId)
+                @(item.Vencedor != null ? item.Vencedor.Nome : "Sem vencedor definido ainda")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.InicioEm)
@@ -55,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.MaiorLanceAtual)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.LeilaoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LeilaoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LeilaoId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.LeilaoId" class="btn btn-sm btn-primary-custom me-1">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@item.LeilaoId" class="btn btn-sm btn-outline-secondary me-1">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.LeilaoId" class="btn btn-sm btn-outline-danger">Excluir</a>
             </td>
         </tr>
 }
