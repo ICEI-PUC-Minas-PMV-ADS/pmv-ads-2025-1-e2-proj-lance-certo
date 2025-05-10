@@ -1,80 +1,87 @@
 # LanceCerto.WebApp
 
-**Lance Certo** é uma aplicação web desenvolvida em ASP.NET Core MVC com .NET 8.0 para gerenciamento e participação em leilões de imóveis. O sistema permite cadastrar, editar, visualizar e excluir imóveis, além de realizar pesquisas com filtros por cidade, estado, tipo e preço.
+**Lance Certo** é uma aplicação web desenvolvida em **ASP.NET Core MVC (.NET 8.0)** voltada para leilões de imóveis. Permite o cadastro, consulta e gerenciamento de imóveis, usuários e lances, com foco em segurança, usabilidade e clareza nas funcionalidades.
 
 ---
 
 ## 🔧 Tecnologias Utilizadas
 
 - ASP.NET Core MVC (.NET 8.0)
-- Entity Framework Core
-- SQL Server (Azure SQL Database)
+- Entity Framework Core (EF Core)
+- Identity com suporte a PK `int`
+- Azure SQL Database (SQL Server)
 - Bootstrap 5
-- Razor Views
 - LINQ
+- Razor Pages
 
 ---
 
 ## ✅ Funcionalidades Implementadas
 
-### 📄 CRUD Completo de Imóveis
-- Cadastro de novo imóvel
-- Listagem com filtros de pesquisa
-- Visualização de detalhes
-- Edição de dados
-- Confirmação e exclusão
+### 📄 CRUD de Imóveis
+- Cadastrar, editar, visualizar e excluir imóveis
+- Upload de URL de imagem (campo ImagemUrl)
+- Campos obrigatórios com validação via DataAnnotations
 
-### 🔍 Filtros de Pesquisa
-- Cidade
-- Estado
-- Tipo de imóvel
-- Preço máximo
+### 🔍 Pesquisa de Imóveis
+- Filtros por cidade, estado, tipo e preço máximo
 
-### 🎯 Extras
-- Validação de formulários com Data Annotations
-- Interface responsiva com Bootstrap
-- Página de erro personalizada (`/Imovel/Error`)
-- Ações na tabela: Ver, Editar e Excluir
+### 👥 Autenticação e Identidade
+- Cadastro de usuários com validação
+- Login e logout com persistência (cookie)
+- Campos extras no usuário: Nome, Data de Nascimento, CRECI, perfil (Corretor/Vendedor)
+
+### 🕒 Leilões
+- Cadastro de leilões com datas de início/fim, status e maior lance atual
+- Vínculo entre imóvel e leilão
+- Relacionamento com usuário vencedor
+
+### 💬 Mensagens
+- Entidade de mensagens com remetente, destinatário e imóvel relacionado
 
 ---
 
-## 🚀 Como Executar
+## 🚀 Como Executar Localmente
 
 1. Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/lancecerto.git
 ```
 
-2. Configure a string de conexão no `appsettings.json` com sua base de dados Azure SQL.
+2. Configure a string de conexão no `appsettings.json`:
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=tcp:seu-servidor.database.windows.net,1433;Database=LanceCertoDB;User ID=seu-usuario;Password=sua-senha;Encrypt=True;"
+}
+```
 
-3. Execute o update do banco:
+3. Aplique as migrations ao banco de dados:
 ```bash
 Update-Database
 ```
 
-4. Compile e execute o projeto no Visual Studio (`Ctrl + F5`)
+4. Execute a aplicação no Visual Studio (`Ctrl + F5`) ou terminal:
+```bash
+dotnet run
+```
 
 ---
 
-## 🧩 Estrutura do Projeto
+## 📁 Estrutura do Projeto
 
 ```
 LanceCerto.WebApp/
 ├── Controllers/
-│   └── ImovelController.cs
 ├── Models/
-│   └── Imovel.cs
+├── Views/
+│   ├── Account/
+│   ├── Imovel/
+│   └── Leilao/
 ├── Data/
 │   └── LanceCertoDbContext.cs
-├── Views/
-│   └── Imovel/
-│       ├── Index.cshtml
-│       ├── Create.cshtml
-│       ├── Edit.cshtml
-│       ├── Details.cshtml
-│       └── Delete.cshtml
-├── appsettings.json
+├── Migrations/
 ├── Program.cs
+├── appsettings.json
 └── README.md
 ```
 
@@ -82,14 +89,15 @@ LanceCerto.WebApp/
 
 ## 🏗️ Próximos Passos
 
-- Implementar autenticação de usuários (corretor, comprador, vendedor)
-- Criar módulo de leilões com histórico de lances
-- Adicionar upload de imagens reais para os imóveis
+- Adicionar módulo de lances ao vivo com cronômetro e controle por JavaScript
+- Implementar dashboard de usuário (perfil)
+- Upload de imagem real com integração a Azure Blob Storage ou local
+- Adicionar autenticação por roles (Admin, Vendedor, Comprador, Corretor)
 
 ---
 
-## 👨‍💻 Desenvolvido por
+## 👨‍💻 Desenvolvedor
 
-Daniel – Estudante de Análise e Desenvolvimento de Sistemas  
-PUC Minas  
-Projeto acadêmico - 2025
+**Daniel Lopes da Costa**  
+Estudante de Análise e Desenvolvimento de Sistemas – PUC Minas  
+Projeto acadêmico desenvolvido no 1º semestre de 2025  

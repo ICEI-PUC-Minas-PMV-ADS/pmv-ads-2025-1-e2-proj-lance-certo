@@ -4,6 +4,7 @@ using LanceCerto.WebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LanceCerto.WebApp.Migrations
 {
     [DbContext(typeof(LanceCertoDbContext))]
-    partial class LanceCertoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250510011556_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,8 +168,7 @@ namespace LanceCerto.WebApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MensagemId"));
 
                     b.Property<string>("Conteudo")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DestinatarioId")
                         .HasColumnType("int");
@@ -210,7 +212,7 @@ namespace LanceCerto.WebApp.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("DataNascimento")
+                    b.Property<DateTime?>("DataNascimento")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("EhCorretor")
@@ -428,13 +430,11 @@ namespace LanceCerto.WebApp.Migrations
                     b.HasOne("LanceCerto.WebApp.Models.Imovel", "Imovel")
                         .WithMany("ImoveisFavoritos")
                         .HasForeignKey("ImovelId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LanceCerto.WebApp.Models.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Imovel");
@@ -483,18 +483,17 @@ namespace LanceCerto.WebApp.Migrations
                     b.HasOne("LanceCerto.WebApp.Models.Usuario", "Destinatario")
                         .WithMany()
                         .HasForeignKey("DestinatarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LanceCerto.WebApp.Models.Imovel", "ImovelRelacionado")
                         .WithMany()
-                        .HasForeignKey("ImovelRelacionadoId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("ImovelRelacionadoId");
 
                     b.HasOne("LanceCerto.WebApp.Models.Usuario", "Remetente")
                         .WithMany()
                         .HasForeignKey("RemetenteId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Destinatario");

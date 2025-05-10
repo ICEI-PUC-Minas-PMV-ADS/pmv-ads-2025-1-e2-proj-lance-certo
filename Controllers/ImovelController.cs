@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using LanceCerto.WebApp.Data;
 using LanceCerto.WebApp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace LanceCerto.WebApp.Controllers
 {
+    [Authorize]
     public class ImovelController : Controller
     {
         private readonly LanceCertoDbContext _context;
@@ -14,7 +16,20 @@ namespace LanceCerto.WebApp.Controllers
             _context = context;
         }
 
-        // GET: Imovel
+        private void PopularDropdowns()
+        {
+            ViewBag.Estados = new List<string>
+            {
+                "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA",
+                "MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN",
+                "RO","RR","RS","SC","SE","SP","TO"
+            };
+
+            ViewBag.Tipos = new List<string> { "Casa", "Apartamento", "Terreno", "Comercial", "Outro" };
+            ViewBag.StatusList = new List<string> { "Disponível", "Indisponível", "Vendido", "Em Leilão" };
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Index(string? cidade, string? estado, string? tipo, decimal? precoMaximo)
         {
             var query = _context.Imoveis.AsQueryable();
@@ -23,126 +38,109 @@ namespace LanceCerto.WebApp.Controllers
                 query = query.Where(i => i.Cidade.Contains(cidade));
 
             if (!string.IsNullOrWhiteSpace(estado))
-                query = query.Where(i => i.Estado.Contains(estado));
+                query = query.Where(i => i.Estado == estado);
 
             if (!string.IsNullOrWhiteSpace(tipo))
-                query = query.Where(i => i.Tipo.Contains(tipo));
+                query = query.Where(i => i.Tipo == tipo);
 
             if (precoMaximo.HasValue)
                 query = query.Where(i => i.PrecoMinimo <= precoMaximo.Value);
 
-            var imoveisFiltrados = await query.OrderBy(i => i.Titulo).ToListAsync();
-            return View(imoveisFiltrados);
+            var imoveis = await query.OrderBy(i => i.Titulo).ToListAsync();
+            return View(imoveis);
         }
 
-        // GET: Imovel/Create
+        [HttpGet]
         public IActionResult Create()
         {
+            PopularDropdowns();
             return View();
         }
 
-        // POST: Imovel/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Imovel imovel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(imovel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                PopularDropdowns();
+                return View(imovel);
             }
-            return View(imovel);
+
+            _context.Add(imovel);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Imovel/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
-            var imovel = await _context.Imoveis
-                .FirstOrDefaultAsync(m => m.ImovelId == id);
-
+            var imovel = await _context.Imoveis.FirstOrDefaultAsync(i => i.ImovelId == id);
             if (imovel == null)
-            {
                 return NotFound();
-            }
 
             return View(imovel);
         }
 
-        // GET: Imovel/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
             var imovel = await _context.Imoveis.FindAsync(id);
             if (imovel == null)
-            {
                 return NotFound();
-            }
 
+            PopularDropdowns();
             return View(imovel);
         }
 
-        // POST: Imovel/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Imovel imovel)
         {
             if (id != imovel.ImovelId)
+                return BadRequest();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                PopularDropdowns();
+                return View(imovel);
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(imovel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Imoveis.Any(e => e.ImovelId == imovel.ImovelId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(imovel);
+                await _context.SaveChangesAsync();
             }
-            return View(imovel);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _context.Imoveis.AnyAsync(e => e.ImovelId == id))
+                    return NotFound();
+
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Imovel/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
-            var imovel = await _context.Imoveis
-                .FirstOrDefaultAsync(m => m.ImovelId == id);
+            var imovel = await _context.Imoveis.FirstOrDefaultAsync(i => i.ImovelId == id);
             if (imovel == null)
-            {
                 return NotFound();
-            }
 
             return View(imovel);
         }
 
-        // POST: Imovel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -157,7 +155,7 @@ namespace LanceCerto.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Imovel/Error
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View("Error");
