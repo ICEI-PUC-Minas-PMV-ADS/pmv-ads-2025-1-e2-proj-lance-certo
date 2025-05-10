@@ -2,9 +2,12 @@
 using LanceCerto.WebApp.Data;
 using LanceCerto.WebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace LanceCerto.WebApp.Controllers
 {
+    [Authorize]
     public class ImovelController : Controller
     {
         private readonly LanceCertoDbContext _context;
@@ -15,6 +18,7 @@ namespace LanceCerto.WebApp.Controllers
         }
 
         // GET: Imovel
+        [HttpGet]
         public async Task<IActionResult> Index(string? cidade, string? estado, string? tipo, decimal? precoMaximo)
         {
             var query = _context.Imoveis.AsQueryable();
@@ -31,11 +35,15 @@ namespace LanceCerto.WebApp.Controllers
             if (precoMaximo.HasValue)
                 query = query.Where(i => i.PrecoMinimo <= precoMaximo.Value);
 
-            var imoveisFiltrados = await query.OrderBy(i => i.Titulo).ToListAsync();
+            var imoveisFiltrados = await query
+                .OrderBy(i => i.Titulo)
+                .ToListAsync();
+
             return View(imoveisFiltrados);
         }
 
         // GET: Imovel/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -56,37 +64,31 @@ namespace LanceCerto.WebApp.Controllers
         }
 
         // GET: Imovel/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
             var imovel = await _context.Imoveis
                 .FirstOrDefaultAsync(m => m.ImovelId == id);
 
             if (imovel == null)
-            {
                 return NotFound();
-            }
 
             return View(imovel);
         }
 
         // GET: Imovel/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
             var imovel = await _context.Imoveis.FindAsync(id);
             if (imovel == null)
-            {
                 return NotFound();
-            }
 
             return View(imovel);
         }
@@ -97,9 +99,7 @@ namespace LanceCerto.WebApp.Controllers
         public async Task<IActionResult> Edit(int id, Imovel imovel)
         {
             if (id != imovel.ImovelId)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
             if (ModelState.IsValid)
             {
@@ -110,34 +110,30 @@ namespace LanceCerto.WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Imoveis.Any(e => e.ImovelId == imovel.ImovelId))
-                    {
+                    if (!await _context.Imoveis.AnyAsync(e => e.ImovelId == imovel.ImovelId))
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(imovel);
         }
 
         // GET: Imovel/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return BadRequest();
 
             var imovel = await _context.Imoveis
                 .FirstOrDefaultAsync(m => m.ImovelId == id);
+
             if (imovel == null)
-            {
                 return NotFound();
-            }
 
             return View(imovel);
         }
@@ -158,6 +154,7 @@ namespace LanceCerto.WebApp.Controllers
         }
 
         // GET: Imovel/Error
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View("Error");

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LanceCerto.WebApp.Data;
 using LanceCerto.WebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LanceCerto.WebApp.Controllers
 {
+    [Authorize]
     public class LeilaoController : Controller
     {
         private readonly LanceCertoDbContext _context;
@@ -20,43 +21,38 @@ namespace LanceCerto.WebApp.Controllers
         }
 
         // GET: Leilao
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var lanceCertoDbContext = _context.Leiloes.Include(l => l.Imovel).Include(l => l.Vencedor);
-            return View(await lanceCertoDbContext.ToListAsync());
+            var leiloes = await _context.Leiloes
+                .Include(l => l.Imovel)
+                .Include(l => l.Vencedor)
+                .OrderByDescending(l => l.FimEm)
+                .ToListAsync();
+
+            return View(leiloes);
         }
 
         // GET: Leilao/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return BadRequest();
 
             var leilao = await _context.Leiloes
                 .Include(l => l.Imovel)
                 .Include(l => l.Vencedor)
                 .FirstOrDefaultAsync(m => m.LeilaoId == id);
-            if (leilao == null)
-            {
-                return NotFound();
-            }
 
-            return View(leilao);
+            return leilao == null ? NotFound() : View(leilao);
         }
 
-        
-
-        // POST: Leilao/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // GET: Leilao/Create
+        [HttpGet]
         public IActionResult Create()
         {
             ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Titulo");
-
-            ViewBag.StatusList = new SelectList(new List<string> { "PENDENTE", "ATIVO", "ENCERRADO" });
-
+            ViewBag.StatusList = new SelectList(new[] { "PENDENTE", "ATIVO", "ENCERRADO" });
             return View();
         }
 
@@ -65,8 +61,6 @@ namespace LanceCerto.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LeilaoId,ImovelId,InicioEm,FimEm,Status,MaiorLanceAtual")] Leilao leilao)
         {
-            Console.WriteLine("===== ENTROU NO MÉTODO POST DO LEILÃO =====");
-
             if (leilao.InicioEm >= leilao.FimEm)
             {
                 ModelState.AddModelError("FimEm", "A data de fim deve ser posterior à data de início.");
@@ -74,57 +68,43 @@ namespace LanceCerto.WebApp.Controllers
 
             if (ModelState.IsValid)
             {
+                leilao.MaiorLanceAtual = 0;
                 _context.Add(leilao);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            if (!ModelState.IsValid)
-            {
-                foreach (var error in ModelState)
-                {
-                    foreach (var subError in error.Value.Errors)
-                    {
-                        Console.WriteLine($"Erro no campo '{error.Key}': {subError.ErrorMessage}");
-                    }
-                }
-            }
-
-            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Cidade", leilao.ImovelId);
-            ViewBag.StatusList = new SelectList(new List<string> { "PENDENTE", "ATIVO", "ENCERRADO" }, leilao.Status);
-            leilao.MaiorLanceAtual = 0;
+            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Titulo", leilao.ImovelId);
+            ViewBag.StatusList = new SelectList(new[] { "PENDENTE", "ATIVO", "ENCERRADO" }, leilao.Status);
 
             return View(leilao);
         }
 
         // GET: Leilao/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return BadRequest();
 
             var leilao = await _context.Leiloes.FindAsync(id);
-            if (leilao == null)
-            {
-                return NotFound();
-            }
-            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Cidade", leilao.ImovelId);
-            ViewData["VencedorId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId", leilao.VencedorId);
+            if (leilao == null) return NotFound();
+
+            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Titulo", leilao.ImovelId);
+            ViewData["VencedorId"] = new SelectList(_context.Users, "Id", "Email", leilao.VencedorId);
+
             return View(leilao);
         }
 
         // POST: Leilao/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LeilaoId,ImovelId,VencedorId,InicioEm,FimEm,Status,MaiorLanceAtual")] Leilao leilao)
         {
-            if (id != leilao.LeilaoId)
+            if (id != leilao.LeilaoId) return BadRequest();
+
+            if (leilao.InicioEm >= leilao.FimEm)
             {
-                return NotFound();
+                ModelState.AddModelError("FimEm", "A data de fim deve ser posterior à data de início.");
             }
 
             if (ModelState.IsValid)
@@ -136,40 +116,33 @@ namespace LanceCerto.WebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LeilaoExists(leilao.LeilaoId))
-                    {
+                    if (!await _context.Leiloes.AnyAsync(e => e.LeilaoId == leilao.LeilaoId))
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+
+                    throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Cidade", leilao.ImovelId);
-            ViewData["VencedorId"] = new SelectList(_context.Usuarios, "UsuarioId", "UsuarioId", leilao.VencedorId);
+
+            ViewData["ImovelId"] = new SelectList(_context.Imoveis, "ImovelId", "Titulo", leilao.ImovelId);
+            ViewData["VencedorId"] = new SelectList(_context.Users, "Id", "Email", leilao.VencedorId);
+
             return View(leilao);
         }
 
         // GET: Leilao/Delete/5
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return BadRequest();
 
             var leilao = await _context.Leiloes
                 .Include(l => l.Imovel)
                 .Include(l => l.Vencedor)
                 .FirstOrDefaultAsync(m => m.LeilaoId == id);
-            if (leilao == null)
-            {
-                return NotFound();
-            }
 
-            return View(leilao);
+            return leilao == null ? NotFound() : View(leilao);
         }
 
         // POST: Leilao/Delete/5
@@ -181,15 +154,10 @@ namespace LanceCerto.WebApp.Controllers
             if (leilao != null)
             {
                 _context.Leiloes.Remove(leilao);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool LeilaoExists(int id)
-        {
-            return _context.Leiloes.Any(e => e.LeilaoId == id);
         }
     }
 }

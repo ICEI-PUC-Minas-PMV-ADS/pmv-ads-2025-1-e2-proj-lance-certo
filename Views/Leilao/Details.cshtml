@@ -1,54 +1,38 @@
 ﻿@model LanceCerto.WebApp.Models.Leilao
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Leilão";
 }
 
-<h1>Details</h1>
+<h2 class="mb-4">Detalhes do Leilão</h2>
 
-<div>
-    <h4>Leilao</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Imovel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Imovel.Cidade)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Vencedor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vencedor.UsuarioId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InicioEm)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InicioEm)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FimEm)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FimEm)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaiorLanceAtual)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaiorLanceAtual)
-        </dd>
-    </dl>
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Imóvel</dt>
+            <dd class="col-sm-9">
+                @Model.Imovel?.Titulo (@Model.Imovel?.Cidade - @Model.Imovel?.Estado)
+            </dd>
+
+            <dt class="col-sm-3">Vencedor (ID)</dt>
+            <dd class="col-sm-9">@Model.Vencedor?.Id ?? "Nenhum"</dd>
+
+            <dt class="col-sm-3">Início</dt>
+            <dd class="col-sm-9">@Model.InicioEm.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-3">Fim</dt>
+            <dd class="col-sm-9">@Model.FimEm.ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">@Model.Status</dd>
+
+            <dt class="col-sm-3">Maior Lance Atual</dt>
+            <dd class="col-sm-9">R$ @Model.MaiorLanceAtual.ToString("N2")</dd>
+        </dl>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.LeilaoId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="d-flex flex-wrap gap-2">
+    <a asp-action="Edit" asp-route-id="@Model.LeilaoId" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
 </div>

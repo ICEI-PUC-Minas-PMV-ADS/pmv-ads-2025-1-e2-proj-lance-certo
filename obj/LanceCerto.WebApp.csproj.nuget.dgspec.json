@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj": {}
+    "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\LanceCerto.WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj": {
+    "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\LanceCerto.WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\LanceCerto.WebApp.csproj",
         "projectName": "LanceCerto.WebApp",
-        "projectPath": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\LanceCerto.WebApp.csproj",
-        "packagesPath": "C:\\Users\\Daniel Dumont\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\obj\\",
+        "projectPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\LanceCerto.WebApp.csproj",
+        "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Daniel Dumont\\OneDrive\\Desktop\\Faculdade\\Projeto\\NuGet.Config",
-          "C:\\Users\\Daniel Dumont\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\NuGet.Config",
+          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,13 +43,16 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.15, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -90,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

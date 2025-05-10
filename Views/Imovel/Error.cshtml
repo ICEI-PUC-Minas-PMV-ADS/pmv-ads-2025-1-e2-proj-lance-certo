@@ -2,16 +2,18 @@
     ViewData["Title"] = "Erro";
 }
 
-<div class="container text-center mt-5">
+<main role="main" class="container text-center py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="alert alert-danger shadow p-4 rounded">
-                <h1 class="display-4">Ops! Algo deu errado.</h1>
-                <p class="lead">Não conseguimos completar a sua solicitação no momento.</p>
-                <hr />
-                <p>Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico.</p>
-                <a href="/Imovel" class="btn btn-primary mt-3">Voltar para a pesquisa de imóveis</a>
+            <div class="alert alert-danger shadow-sm p-4 rounded">
+                <h1 class="display-5 fw-bold mb-3">Ops! Algo deu errado.</h1>
+                <p class="lead text-muted">Não conseguimos completar a sua solicitação no momento.</p>
+                <hr class="my-4" />
+                <p class="mb-4">Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico.</p>
+                <a asp-controller="Imovel" asp-action="Index" class="btn btn-primary" aria-label="Voltar para a listagem de imóveis">
+                    Voltar para Imóveis
+                </a>
             </div>
         </div>
     </div>
-</div>
+</main>
