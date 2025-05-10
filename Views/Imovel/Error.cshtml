@@ -1,16 +1,22 @@
 @{
-    ViewData["Title"] = "Erro";
+    ViewData["Title"] = "Erro Interno";
 }
 
-<main role="main" class="container text-center py-5">
+<main role="main" class="container py-5 text-center">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="alert alert-danger shadow-sm p-4 rounded">
-                <h1 class="display-5 fw-bold mb-3">Ops! Algo deu errado.</h1>
-                <p class="lead text-muted">Não conseguimos completar a sua solicitação no momento.</p>
+        <div class="col-lg-8">
+            <div class="alert alert-danger shadow p-4 rounded" role="alert" aria-live="assertive">
+                <h1 class="display-5 fw-bold mb-3">🚨 Ops! Algo deu errado.</h1>
+                <p class="lead text-muted">
+                    Infelizmente, não conseguimos concluir a sua solicitação no momento.
+                </p>
                 <hr class="my-4" />
-                <p class="mb-4">Por favor, tente novamente mais tarde ou entre em contato com o suporte técnico.</p>
-                <a asp-controller="Imovel" asp-action="Index" class="btn btn-primary" aria-label="Voltar para a listagem de imóveis">
+                <p class="mb-4">
+                    Tente novamente mais tarde ou entre em contato com o suporte técnico, caso o problema persista.
+                </p>
+                <a asp-controller="Imovel" asp-action="Index"
+                   class="btn btn-primary btn-lg"
+                   aria-label="Voltar para a listagem de imóveis">
                     Voltar para Imóveis
                 </a>
             </div>

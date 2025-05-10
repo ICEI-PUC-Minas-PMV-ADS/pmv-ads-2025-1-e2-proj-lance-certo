@@ -19,7 +19,13 @@ namespace LanceCerto.WebApp.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            // Redireciona usuários logados para a tela principal do sistema
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Imovel");
+            }
+
+            return View(); // Tela inicial pública com "Entrar" e "Criar Conta"
         }
 
         // GET: /Home/Error
@@ -30,10 +36,19 @@ namespace LanceCerto.WebApp.Controllers
             var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
             if (exceptionFeature != null)
             {
-                _logger.LogError(exceptionFeature.Error, "Erro não tratado em: {Path}", exceptionFeature.Path);
+                _logger.LogError(exceptionFeature.Error,
+                    "Erro não tratado na rota: {Path}", exceptionFeature.Path);
             }
 
             return View("Error");
+        }
+
+        // GET: /Home/Privacy (caso tenha a view de política de privacidade)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }

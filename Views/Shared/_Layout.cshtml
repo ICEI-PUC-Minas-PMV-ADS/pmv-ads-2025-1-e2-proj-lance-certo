@@ -3,11 +3,15 @@
 @inject SignInManager<Usuario> SignInManager
 @inject UserManager<Usuario> UserManager
 
+@{
+    var isHomePublic = Context.Request.Path == "/" || Context.Request.Path == "/Home" || Context.Request.Path == "/Home/Index";
+}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewData["Title"] - Lance Certo</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -24,54 +28,58 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #071952;">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Lance Certo</a>
+                <a class="navbar-brand text-white fw-bold" asp-controller="Home" asp-action="Index">Lance Certo</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
-                        aria-controls="navbarMain" aria-expanded="false" aria-label="Alternar navegação">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                @* Exibe a navbar apenas se o usuário estiver logado OU se não estiver na página Home/Index *@
+                @if (!isHomePublic || SignInManager.IsSignedIn(User))
+                {
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                            aria-controls="navbarMain" aria-expanded="false" aria-label="Menu de navegação">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="collapse navbar-collapse justify-content-between" id="navbarMain">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Início</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Imovel" asp-action="Index">Imóveis</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Leilao" asp-action="Index">Leilões</a>
-                        </li>
-                    </ul>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarMain">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Imovel" asp-action="Index">Imóveis</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-controller="Leilao" asp-action="Index">Leilões</a>
+                                </li>
+                            }
+                        </ul>
 
-                    <ul class="navbar-nav ms-auto">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item d-flex align-items-center me-2">
-                                @{
-                                    var currentUser = await UserManager.GetUserAsync(User);
-                                    var displayName = currentUser?.Nome ?? User.Identity?.Name;
-                                }
-                                <span class="nav-link text-light">Olá, @displayName!</span>
-                            </li>
-                            <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-link nav-link text-light border-0" aria-label="Sair da conta">Sair</button>
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="Account" asp-action="Cadastro">Criar Conta</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Entrar</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                        <ul class="navbar-nav ms-auto">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item d-flex align-items-center me-2">
+                                    @{
+                                        var currentUser = await UserManager.GetUserAsync(User);
+                                        var displayName = currentUser?.Nome ?? User.Identity?.Name;
+                                    }
+                                    <span class="nav-link text-light">Olá, @displayName!</span>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-link nav-link text-light border-0" aria-label="Sair da conta">Sair</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-controller="Account" asp-action="Cadastro">Criar Conta</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Entrar</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
             </div>
         </nav>
     </header>
@@ -87,9 +95,9 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js" async></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" async></script>
-    <script src="~/js/site.js" asp-append-version="true" async></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="~/js/site.js" asp-append-version="true" defer></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

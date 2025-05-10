@@ -58,7 +58,7 @@ namespace LanceCerto.WebApp.Controllers
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(usuario, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Imovel"); // Redireciona para a tela de imóveis após o cadastro
             }
 
             foreach (var erro in result.Errors)
@@ -97,7 +97,7 @@ namespace LanceCerto.WebApp.Controllers
                     lockoutOnFailure: true);
 
                 if (result.Succeeded)
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl); // Redirecionamento seguro
 
                 if (result.IsLockedOut)
                 {
@@ -110,8 +110,9 @@ namespace LanceCerto.WebApp.Controllers
             return View(model);
         }
 
-        // GET: /Account/Logout
-        [HttpGet]
+        // POST: /Account/Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -129,7 +130,8 @@ namespace LanceCerto.WebApp.Controllers
         {
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Imovel"); // Tela de destino padrão após login
         }
     }
 }

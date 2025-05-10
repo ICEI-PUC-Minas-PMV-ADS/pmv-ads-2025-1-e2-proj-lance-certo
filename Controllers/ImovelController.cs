@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using LanceCerto.WebApp.Data;
 using LanceCerto.WebApp.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 
 namespace LanceCerto.WebApp.Controllers
 {
@@ -17,7 +16,19 @@ namespace LanceCerto.WebApp.Controllers
             _context = context;
         }
 
-        // GET: Imovel
+        private void PopularDropdowns()
+        {
+            ViewBag.Estados = new List<string>
+            {
+                "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA",
+                "MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN",
+                "RO","RR","RS","SC","SE","SP","TO"
+            };
+
+            ViewBag.Tipos = new List<string> { "Casa", "Apartamento", "Terreno", "Comercial", "Outro" };
+            ViewBag.StatusList = new List<string> { "Disponível", "Indisponível", "Vendido", "Em Leilão" };
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index(string? cidade, string? estado, string? tipo, decimal? precoMaximo)
         {
@@ -27,59 +38,53 @@ namespace LanceCerto.WebApp.Controllers
                 query = query.Where(i => i.Cidade.Contains(cidade));
 
             if (!string.IsNullOrWhiteSpace(estado))
-                query = query.Where(i => i.Estado.Contains(estado));
+                query = query.Where(i => i.Estado == estado);
 
             if (!string.IsNullOrWhiteSpace(tipo))
-                query = query.Where(i => i.Tipo.Contains(tipo));
+                query = query.Where(i => i.Tipo == tipo);
 
             if (precoMaximo.HasValue)
                 query = query.Where(i => i.PrecoMinimo <= precoMaximo.Value);
 
-            var imoveisFiltrados = await query
-                .OrderBy(i => i.Titulo)
-                .ToListAsync();
-
-            return View(imoveisFiltrados);
+            var imoveis = await query.OrderBy(i => i.Titulo).ToListAsync();
+            return View(imoveis);
         }
 
-        // GET: Imovel/Create
         [HttpGet]
         public IActionResult Create()
         {
+            PopularDropdowns();
             return View();
         }
 
-        // POST: Imovel/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Imovel imovel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(imovel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                PopularDropdowns();
+                return View(imovel);
             }
-            return View(imovel);
+
+            _context.Add(imovel);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Imovel/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
                 return BadRequest();
 
-            var imovel = await _context.Imoveis
-                .FirstOrDefaultAsync(m => m.ImovelId == id);
-
+            var imovel = await _context.Imoveis.FirstOrDefaultAsync(i => i.ImovelId == id);
             if (imovel == null)
                 return NotFound();
 
             return View(imovel);
         }
 
-        // GET: Imovel/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -90,10 +95,10 @@ namespace LanceCerto.WebApp.Controllers
             if (imovel == null)
                 return NotFound();
 
+            PopularDropdowns();
             return View(imovel);
         }
 
-        // POST: Imovel/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Imovel imovel)
@@ -101,44 +106,41 @@ namespace LanceCerto.WebApp.Controllers
             if (id != imovel.ImovelId)
                 return BadRequest();
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(imovel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!await _context.Imoveis.AnyAsync(e => e.ImovelId == imovel.ImovelId))
-                        return NotFound();
-                    else
-                        throw;
-                }
-
-                return RedirectToAction(nameof(Index));
+                PopularDropdowns();
+                return View(imovel);
             }
 
-            return View(imovel);
+            try
+            {
+                _context.Update(imovel);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await _context.Imoveis.AnyAsync(e => e.ImovelId == id))
+                    return NotFound();
+
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Imovel/Delete/5
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
                 return BadRequest();
 
-            var imovel = await _context.Imoveis
-                .FirstOrDefaultAsync(m => m.ImovelId == id);
-
+            var imovel = await _context.Imoveis.FirstOrDefaultAsync(i => i.ImovelId == id);
             if (imovel == null)
                 return NotFound();
 
             return View(imovel);
         }
 
-        // POST: Imovel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -153,7 +155,6 @@ namespace LanceCerto.WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Imovel/Error
         [AllowAnonymous]
         public IActionResult Error()
         {

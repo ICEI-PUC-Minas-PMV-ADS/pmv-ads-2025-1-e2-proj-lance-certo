@@ -4,29 +4,45 @@
     ViewData["Title"] = "Confirmar Exclusão";
 }
 
-<h2 class="mb-4 text-danger">Confirmar Exclusão</h2>
+<h2 class="mb-4 text-danger">Confirmar Exclusão de Imóvel</h2>
 
-<div class="alert alert-warning border border-danger">
-    <strong>Atenção:</strong> Esta ação não poderá ser desfeita. Tem certeza de que deseja excluir este imóvel?
+<div class="alert alert-warning border border-danger rounded shadow-sm" role="alert">
+    <strong>Atenção:</strong> Esta ação é <span class="fw-bold">irreversível</span>. Deseja realmente excluir o imóvel abaixo?
 </div>
 
-<div class="card mt-4 shadow-sm">
+<div class="card shadow-sm mb-4">
     <div class="card-body">
         <h5 class="card-title fw-bold text-primary">@Model.Titulo</h5>
-        <p class="card-text mb-1"><strong>Tipo:</strong> @Model.Tipo</p>
-        <p class="card-text mb-1"><strong>Endereço:</strong> @Model.Endereco</p>
-        <p class="card-text mb-1"><strong>Cidade:</strong> @Model.Cidade</p>
-        <p class="card-text mb-1"><strong>Estado:</strong> @Model.Estado</p>
-        <p class="card-text mb-1"><strong>Preço Mínimo:</strong> R$ @Model.PrecoMinimo.ToString("N2")</p>
-        <p class="card-text"><strong>Status:</strong> @Model.Status</p>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="mb-1"><strong>Tipo:</strong> @Model.Tipo</p>
+                <p class="mb-1"><strong>Endereço:</strong> @Model.Endereco</p>
+                <p class="mb-1"><strong>Cidade:</strong> @Model.Cidade</p>
+                <p class="mb-1"><strong>Estado:</strong> @Model.Estado</p>
+            </div>
+            <div class="col-md-6">
+                <p class="mb-1"><strong>Preço Mínimo:</strong> R$ @Model.PrecoMinimo.ToString("N2")</p>
+                <p class="mb-1"><strong>Status:</strong> @Model.Status</p>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ImagemUrl))
+                {
+                    <div class="mt-3">
+                        <img src="@Model.ImagemUrl"
+                             alt="Imagem do imóvel: @Model.Titulo"
+                             class="img-fluid rounded border"
+                             style="max-height: 180px;" />
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
-<form asp-action="Delete" method="post" class="mt-4">
+<form asp-action="Delete" method="post" aria-label="Formulário para confirmar exclusão de imóvel">
     <input type="hidden" asp-for="ImovelId" />
 
     <div class="d-flex flex-wrap gap-2">
-        <button type="submit" class="btn btn-danger">Sim, excluir</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-danger" aria-label="Confirmar exclusão do imóvel">Sim, excluir</button>
+        <a asp-action="Index" class="btn btn-outline-secondary" aria-label="Cancelar e voltar para a lista de imóveis">Cancelar</a>
     </div>
 </form>
