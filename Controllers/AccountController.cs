@@ -1,9 +1,9 @@
 ﻿using LanceCerto.WebApp.Data;
 using LanceCerto.WebApp.Models;
+using LanceCerto.WebApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace LanceCerto.WebApp.Controllers
 {
@@ -12,15 +12,18 @@ namespace LanceCerto.WebApp.Controllers
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signInManager;
         private readonly LanceCertoDbContext _context;
+        private readonly RecaptchaService _recaptcha;
 
         public AccountController(
             UserManager<Usuario> userManager,
             SignInManager<Usuario> signInManager,
-            LanceCertoDbContext context)
+            LanceCertoDbContext context,
+            RecaptchaService recaptcha)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _recaptcha = recaptcha;
         }
 
         // GET: /Account/Cadastro
@@ -46,6 +49,15 @@ namespace LanceCerto.WebApp.Controllers
                 return View(model);
             }
 
+            // 🔐 reCAPTCHA v2
+            var captchaResponse = Request.Form["g-recaptcha-response"];
+            var isHuman = await _recaptcha.VerifyAsync(captchaResponse);
+            if (!isHuman)
+            {
+                ModelState.AddModelError(string.Empty, "Confirmação de segurança falhou. Por favor, confirme que você não é um robô.");
+                return View(model);
+            }
+
             var usuario = new Usuario
             {
                 UserName = model.Email,
@@ -55,10 +67,11 @@ namespace LanceCerto.WebApp.Controllers
             };
 
             var result = await _userManager.CreateAsync(usuario, model.Senha);
+
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(usuario, isPersistent: false);
-                return RedirectToAction("Index", "Imovel"); // Redireciona para a tela de imóveis após o cadastro
+                return RedirectToAction("Index", "Imovel");
             }
 
             foreach (var erro in result.Errors)
@@ -87,26 +100,36 @@ namespace LanceCerto.WebApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            // 🔐 reCAPTCHA v2
+            var captchaResponse = Request.Form["g-recaptcha-response"];
+            var isHuman = await _recaptcha.VerifyAsync(captchaResponse);
+            if (!isHuman)
+            {
+                ModelState.AddModelError(string.Empty, "Confirmação de segurança falhou. Por favor, confirme que você não é um robô.");
+                return View(model);
+            }
+
             var user = await _userManager.FindByEmailAsync(model.Email!);
-            if (user != null)
+            if (user != null && !string.IsNullOrWhiteSpace(user.UserName))
             {
                 var result = await _signInManager.PasswordSignInAsync(
-                    user.UserName!,
+                    user.UserName,
                     model.Senha!,
                     model.LembrarMe,
-                    lockoutOnFailure: true);
+                    lockoutOnFailure: true
+                );
 
                 if (result.Succeeded)
-                    return RedirectToLocal(returnUrl); // Redirecionamento seguro
+                    return RedirectToLocal(returnUrl);
 
                 if (result.IsLockedOut)
                 {
-                    ModelState.AddModelError(string.Empty, "Conta bloqueada por múltiplas tentativas inválidas.");
+                    ModelState.AddModelError(string.Empty, "Conta bloqueada por múltiplas tentativas inválidas. Tente novamente mais tarde.");
                     return View(model);
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Tentativa de login inválida.");
+            ModelState.AddModelError(string.Empty, "E-mail ou senha incorretos.");
             return View(model);
         }
 
@@ -126,12 +149,13 @@ namespace LanceCerto.WebApp.Controllers
             return View();
         }
 
+        // ✅ Redireciona com segurança
         private IActionResult RedirectToLocal(string? returnUrl)
         {
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
 
-            return RedirectToAction("Index", "Imovel"); // Tela de destino padrão após login
+            return RedirectToAction("Index", "Imovel");
         }
     }
 }

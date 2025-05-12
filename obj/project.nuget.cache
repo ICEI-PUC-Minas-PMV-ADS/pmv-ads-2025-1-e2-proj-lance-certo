@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZD2LYJcFYS5Sy72vWGM8n98ZBbIAnXomyQB5Y1uZ12zeOy9imsnKEd+BTiN78B+vsbrjEbVQtxV/YrfWNomw+A==",
+  "dgSpecHash": "Gdj7zuLtpGgwVdRd0Av8UrVuSFbe3Jt6ZaOj1ZRT0FmrOeN/AJJGo3P45ybRbdMs775ZAoZyc0joMTLPgltq5Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\danie\\OneDrive\\Desktop\\Projetos\\Universidade\\Lance Certo\\Código-Fonte\\LanceCerto.WebApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\danie\\.nuget\\packages\\aspnetcoreratelimit\\5.0.0\\aspnetcoreratelimit.5.0.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
