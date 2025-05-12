@@ -265,3 +265,4 @@ C:\Users\danie\OneDrive\Desktop\Projetos\Universidade\Lance Certo\Código-Fonte\
 C:\Users\danie\OneDrive\Desktop\Projetos\Universidade\Lance Certo\Código-Fonte\obj\Debug\net8.0\LanceCerto.WebApp.pdb
 C:\Users\danie\OneDrive\Desktop\Projetos\Universidade\Lance Certo\Código-Fonte\obj\Debug\net8.0\LanceCerto.WebApp.genruntimeconfig.cache
 C:\Users\danie\OneDrive\Desktop\Projetos\Universidade\Lance Certo\Código-Fonte\obj\Debug\net8.0\ref\LanceCerto.WebApp.dll
+C:\Users\danie\OneDrive\Desktop\Projetos\Universidade\Lance Certo\Código-Fonte\bin\Debug\net8.0\AspNetCoreRateLimit.dll

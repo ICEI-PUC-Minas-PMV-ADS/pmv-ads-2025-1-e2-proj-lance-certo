@@ -19,13 +19,14 @@ namespace LanceCerto.WebApp.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            // Redireciona usuários logados para a tela principal do sistema
-            if (User.Identity != null && User.Identity.IsAuthenticated)
+            // Se o usuário já estiver autenticado, redireciona para o sistema
+            if (User.Identity?.IsAuthenticated == true)
             {
                 return RedirectToAction("Index", "Imovel");
             }
 
-            return View(); // Tela inicial pública com "Entrar" e "Criar Conta"
+            // Página inicial pública com "Entrar" e "Criar Conta"
+            return View();
         }
 
         // GET: /Home/Error
@@ -43,12 +44,12 @@ namespace LanceCerto.WebApp.Controllers
             return View("Error");
         }
 
-        // GET: /Home/Privacy (caso tenha a view de política de privacidade)
+        // GET: /Home/Privacy
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Privacy()
         {
-            return View();
+            return View(); // View opcional com a política de privacidade
         }
     }
 }

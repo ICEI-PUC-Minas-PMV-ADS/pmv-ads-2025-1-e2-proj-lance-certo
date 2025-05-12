@@ -4,7 +4,10 @@
 @inject UserManager<Usuario> UserManager
 
 @{
-    var isHomePublic = Context.Request.Path == "/" || Context.Request.Path == "/Home" || Context.Request.Path == "/Home/Index";
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+    var isPublicHome = controller == "Home" && (action == "Index" || string.IsNullOrEmpty(action));
+    var isAuthPage = controller == "Account" && (action == "Login" || action == "Cadastro");
 }
 
 <!DOCTYPE html>
@@ -30,8 +33,8 @@
             <div class="container-fluid">
                 <a class="navbar-brand text-white fw-bold" asp-controller="Home" asp-action="Index">Lance Certo</a>
 
-                @* Exibe a navbar apenas se o usuário estiver logado OU se não estiver na página Home/Index *@
-                @if (!isHomePublic || SignInManager.IsSignedIn(User))
+                @* Exibe a navbar somente se for usuário autenticado ou fora da tela pública inicial *@
+                @if (!isPublicHome || SignInManager.IsSignedIn(User))
                 {
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
                             aria-controls="navbarMain" aria-expanded="false" aria-label="Menu de navegação">
@@ -68,7 +71,7 @@
                                     </form>
                                 </li>
                             }
-                            else
+                            else if (!isAuthPage) @* 🔒 Oculta "Entrar / Criar Conta" nas telas Account/Login e Account/Cadastro *@
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-light" asp-controller="Account" asp-action="Cadastro">Criar Conta</a>
