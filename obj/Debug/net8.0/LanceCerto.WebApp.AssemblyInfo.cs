@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LanceCerto.WebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67fa45255596fc9a7611c7c59a30a127dee72e66")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+995a6392ba380ef786c34e9e140b79f2df29aabc")]
 [assembly: System.Reflection.AssemblyProductAttribute("LanceCerto.WebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LanceCerto.WebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,35 +1,68 @@
 @model IEnumerable<LanceCerto.WebApp.Models.Imovel>
+@using Microsoft.AspNetCore.Mvc.Rendering
 
 @{
     ViewData["Title"] = "Pesquisa de Imóveis";
 }
 
-<h2 class="mb-4">Pesquisa de Imóveis</h2>
+<h2 class="mb-4">@ViewData["Title"]</h2>
 
-<form method="get" class="mb-4" role="search" aria-label="Formulário de pesquisa de imóveis">
+<form asp-action="Index" method="get" class="mb-4" role="search" aria-label="Formulário de pesquisa de imóveis">
     <div class="row g-3">
         <div class="col-md-3">
-            <label for="cidade" class="form-label visually-hidden">Cidade</label>
-            <input name="cidade" id="cidade" class="form-control" placeholder="Cidade" value="@Context.Request.Query["cidade"]" />
+            <label for="cidade" class="visually-hidden">Cidade</label>
+            <input type="text"
+                   id="cidade"
+                   name="cidade"
+                   class="form-control"
+                   placeholder="Cidade"
+                   value="@Context.Request.Query["cidade"]" />
         </div>
+
         <div class="col-md-3">
-            <label for="estado" class="form-label visually-hidden">Estado</label>
-            <input name="estado" id="estado" class="form-control" placeholder="Estado (UF)" maxlength="2" value="@Context.Request.Query["estado"]" />
+            <label for="estado" class="visually-hidden">Estado (UF)</label>
+            <select id="estado"
+                    name="estado"
+                    class="form-select"
+                    asp-items="@(ViewData["Estados"] as List<SelectListItem>)">
+                <option value="">Estado (UF)</option>
+            </select>
         </div>
+
         <div class="col-md-3">
-            <label for="tipo" class="form-label visually-hidden">Tipo</label>
-            <input name="tipo" id="tipo" class="form-control" placeholder="Tipo de Imóvel" value="@Context.Request.Query["tipo"]" />
+            <label for="tipo" class="visually-hidden">Tipo de Imóvel</label>
+            <select id="tipo"
+                    name="tipo"
+                    class="form-select"
+                    asp-items="@(ViewData["Tipos"] as List<SelectListItem>)">
+                <option value="">Tipo de Imóvel</option>
+            </select>
         </div>
+
         <div class="col-md-3">
-            <label for="precoMaximo" class="form-label visually-hidden">Preço Máximo</label>
-            <input name="precoMaximo" id="precoMaximo" class="form-control" type="number" step="0.01" placeholder="Preço Máximo" value="@Context.Request.Query["precoMaximo"]" />
+            <label for="precoMaximo" class="visually-hidden">Preço Máximo</label>
+            <input type="number"
+                   id="precoMaximo"
+                   name="precoMaximo"
+                   class="form-control"
+                   step="0.01"
+                   placeholder="Preço Máximo"
+                   value="@Context.Request.Query["precoMaximo"]" />
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col text-end">
-            <button type="submit" class="btn btn-primary me-2" aria-label="Buscar imóveis com os filtros informados">Pesquisar</button>
-            <a asp-action="Create" class="btn btn-success" aria-label="Cadastrar um novo imóvel">Cadastrar Novo Imóvel</a>
+            <button type="submit"
+                    class="btn btn-primary me-2"
+                    aria-label="Buscar imóveis com os filtros informados">
+                Pesquisar
+            </button>
+            <a asp-action="Create"
+               class="btn btn-success"
+               aria-label="Cadastrar um novo imóvel">
+                Cadastrar Novo Imóvel
+            </a>
         </div>
     </div>
 </form>
@@ -66,9 +99,9 @@ else
                         <td>R$ @item.PrecoMinimo.ToString("N2")</td>
                         <td>@item.Status</td>
                         <td class="text-center">
-                            <a asp-action="Details" asp-route-id="@item.ImovelId" class="btn btn-info btn-sm me-1" aria-label="Ver detalhes do imóvel @item.Titulo">Ver</a>
-                            <a asp-action="Edit" asp-route-id="@item.ImovelId" class="btn btn-warning btn-sm me-1" aria-label="Editar o imóvel @item.Titulo">Editar</a>
-                            <a asp-action="Delete" asp-route-id="@item.ImovelId" class="btn btn-danger btn-sm" aria-label="Excluir o imóvel @item.Titulo">Excluir</a>
+                            <a asp-action="Details" asp-route-id="@item.ImovelId" class="btn btn-info btn-sm me-1">Ver</a>
+                            <a asp-action="Edit" asp-route-id="@item.ImovelId" class="btn btn-warning btn-sm me-1">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@item.ImovelId" class="btn btn-danger btn-sm">Excluir</a>
                         </td>
                     </tr>
                 }

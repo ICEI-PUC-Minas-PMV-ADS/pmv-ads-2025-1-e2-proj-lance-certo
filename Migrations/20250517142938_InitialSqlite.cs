@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LanceCerto.WebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class InitialSqlite : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,11 +15,11 @@ namespace LanceCerto.WebApp.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,28 +30,28 @@ namespace LanceCerto.WebApp.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Estado = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    EhVendedor = table.Column<bool>(type: "bit", nullable: false),
-                    EhCorretor = table.Column<bool>(type: "bit", nullable: false),
-                    Creci = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Estado = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    EhVendedor = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EhCorretor = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Creci = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,11 +62,11 @@ namespace LanceCerto.WebApp.Migrations
                 name: "RoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,18 +83,18 @@ namespace LanceCerto.WebApp.Migrations
                 name: "Imoveis",
                 columns: table => new
                 {
-                    ImovelId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    PrecoMinimo = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImagemUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UsuarioId = table.Column<int>(type: "int", nullable: true)
+                    ImovelId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Titulo = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", nullable: false),
+                    Tipo = table.Column<string>(type: "TEXT", nullable: false),
+                    Endereco = table.Column<string>(type: "TEXT", nullable: false),
+                    Cidade = table.Column<string>(type: "TEXT", nullable: false),
+                    Estado = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false),
+                    PrecoMinimo = table.Column<decimal>(type: "REAL", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: false),
+                    ImagemUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,11 +110,11 @@ namespace LanceCerto.WebApp.Migrations
                 name: "UsuarioClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,10 +131,10 @@ namespace LanceCerto.WebApp.Migrations
                 name: "UsuarioLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,8 +151,8 @@ namespace LanceCerto.WebApp.Migrations
                 name: "UsuarioRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    RoleId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -175,10 +175,10 @@ namespace LanceCerto.WebApp.Migrations
                 name: "UsuarioTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -195,8 +195,8 @@ namespace LanceCerto.WebApp.Migrations
                 name: "ImoveisFavoritos",
                 columns: table => new
                 {
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    ImovelId = table.Column<int>(type: "int", nullable: false)
+                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ImovelId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,26 +205,28 @@ namespace LanceCerto.WebApp.Migrations
                         name: "FK_ImoveisFavoritos_Imoveis_ImovelId",
                         column: x => x.ImovelId,
                         principalTable: "Imoveis",
-                        principalColumn: "ImovelId");
+                        principalColumn: "ImovelId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ImoveisFavoritos_Usuarios_UsuarioId",
                         column: x => x.UsuarioId,
                         principalTable: "Usuarios",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Leiloes",
                 columns: table => new
                 {
-                    LeilaoId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImovelId = table.Column<int>(type: "int", nullable: false),
-                    VencedorId = table.Column<int>(type: "int", nullable: true),
-                    InicioEm = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FimEm = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaiorLanceAtual = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    LeilaoId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ImovelId = table.Column<int>(type: "INTEGER", nullable: false),
+                    VencedorId = table.Column<int>(type: "INTEGER", nullable: true),
+                    InicioEm = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FimEm = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Status = table.Column<string>(type: "TEXT", nullable: false),
+                    MaiorLanceAtual = table.Column<decimal>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -246,13 +248,13 @@ namespace LanceCerto.WebApp.Migrations
                 name: "Mensagens",
                 columns: table => new
                 {
-                    MensagemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RemetenteId = table.Column<int>(type: "int", nullable: false),
-                    DestinatarioId = table.Column<int>(type: "int", nullable: false),
-                    ImovelRelacionadoId = table.Column<int>(type: "int", nullable: true),
-                    Conteudo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EnviadaEm = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    MensagemId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RemetenteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DestinatarioId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ImovelRelacionadoId = table.Column<int>(type: "INTEGER", nullable: true),
+                    Conteudo = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: true),
+                    EnviadaEm = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -261,31 +263,32 @@ namespace LanceCerto.WebApp.Migrations
                         name: "FK_Mensagens_Imoveis_ImovelRelacionadoId",
                         column: x => x.ImovelRelacionadoId,
                         principalTable: "Imoveis",
-                        principalColumn: "ImovelId");
+                        principalColumn: "ImovelId",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Mensagens_Usuarios_DestinatarioId",
                         column: x => x.DestinatarioId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Mensagens_Usuarios_RemetenteId",
                         column: x => x.RemetenteId,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction); // <-- Correção aplicada aqui!
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Lances",
                 columns: table => new
                 {
-                    LanceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LeilaoId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    ValorLance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MomentoLance = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LanceId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LeilaoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UsuarioId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ValorLance = table.Column<decimal>(type: "REAL", nullable: false),
+                    MomentoLance = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -358,8 +361,7 @@ namespace LanceCerto.WebApp.Migrations
                 name: "RoleNameIndex",
                 table: "Roles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UsuarioClaims_UserId",
@@ -385,8 +387,7 @@ namespace LanceCerto.WebApp.Migrations
                 name: "UserNameIndex",
                 table: "Usuarios",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
         }
 
         /// <inheritdoc />

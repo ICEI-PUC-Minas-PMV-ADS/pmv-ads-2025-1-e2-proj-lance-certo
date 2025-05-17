@@ -1,4 +1,6 @@
-﻿using LanceCerto.WebApp.Models;
+﻿using System;
+using System.Linq;
+using LanceCerto.WebApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +20,14 @@ namespace LanceCerto.WebApp.Data
         public DbSet<Lance> Lances { get; set; } = null!;
         public DbSet<Mensagem> Mensagens { get; set; } = null!;
         public DbSet<ImovelFavorito> ImoveisFavoritos { get; set; } = null!;
-        // IdentityDbContext já gerencia o DbSet<Usuario>, mas você pode declarar explicitamente se quiser
         public DbSet<Usuario> Usuarios { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder); // ESSENCIAL para configurar Identity corretamente
+            // Chamada essencial para configurações do Identity
+            base.OnModelCreating(builder);
 
-            // Renomear tabelas padrão do Identity para manter a nomenclatura coesa
+            // Renomear tabelas padrão do Identity
             builder.Entity<Usuario>().ToTable("Usuarios");
             builder.Entity<IdentityRole<int>>().ToTable("Roles");
             builder.Entity<IdentityUserRole<int>>().ToTable("UsuarioRoles");
@@ -50,29 +52,13 @@ namespace LanceCerto.WebApp.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Ajustar precisão decimal para valor de lance
-            builder.Entity<Lance>(entity =>
-            {
-                entity.Property(e => e.ValorLance).HasColumnType("decimal(18,2)");
-            });
-
-            builder.Entity<Leilao>(entity =>
-            {
-                entity.Property(e => e.MaiorLanceAtual).HasColumnType("decimal(18,2)");
-            });
-
-            builder.Entity<Imovel>(entity =>
-            {
-                entity.Property(e => e.PrecoMinimo).HasColumnType("decimal(18,2)");
-            });
-
-            // Correção de múltiplos caminhos de deleção em Mensagem (evita erro de múltiplos cascades)
+            // Correção de múltiplos caminhos de deleção em Mensagem
             builder.Entity<Mensagem>(entity =>
             {
                 entity.HasOne(m => m.Remetente)
                       .WithMany()
                       .HasForeignKey(m => m.RemetenteId)
-                      .OnDelete(DeleteBehavior.Restrict); // evita conflito com Destinatario
+                      .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(m => m.Destinatario)
                       .WithMany()
@@ -84,6 +70,19 @@ namespace LanceCerto.WebApp.Data
                       .HasForeignKey(m => m.ImovelRelacionadoId)
                       .OnDelete(DeleteBehavior.SetNull);
             });
+
+            // Configuração para lances e valores padrão mantidos no código de domínio, mas o tipo será definido genericamente abaixo
+
+            // Aplica REAL a todas as propriedades decimal do modelo para SQLite
+            var decimalProperties = builder.Model
+                .GetEntityTypes()
+                .SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(decimal));
+
+            foreach (var property in decimalProperties)
+            {
+                property.SetColumnType("REAL");
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 using LanceCerto.WebApp.Models;
 using LanceCerto.WebApp.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;            // <-- Necessário para UseSqlite
 using Microsoft.AspNetCore.Http;
 using AspNetCoreRateLimit;
 
@@ -10,9 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region 🔧 Serviços e Configurações
 
-// 📦 Banco de Dados SQL Server (Azure)
+// 📦 Banco de Dados SQLite
 builder.Services.AddDbContext<LanceCertoDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // 🔐 ASP.NET Identity (usuários com chave primária int)
 builder.Services.AddIdentity<Usuario, IdentityRole<int>>(options =>
@@ -77,7 +77,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseIpRateLimiting(); // 🔒 Ativa proteção contra requisições abusivas
+app.UseIpRateLimiting(); // 🔒 Proteção contra requisições abusivas
 
 app.UseAuthentication();
 app.UseAuthorization();
